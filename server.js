@@ -14,6 +14,6 @@ const PORT = process.env.PORT || 3001;
 
 mongConnect.once("open", () => {
   app.listen(PORT, function() {
-    console.log("Server started on port 3000");
+    console.log("Server started on port");
   });
 })
