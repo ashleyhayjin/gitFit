@@ -1,14 +1,17 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const morgan = require('morgan');
-
-
+const mongConnect = require("./mongoose.js");
+const homeRoutes = require("./controllers/homeRoutes");
+const apiRoutes = require("./controllers/api/workoutRoutes");
 const app = express();
 
-
+app.use(express.json());
 app.use(express.static("public"));
-app.set('view engine', 'headers/content');
+app.use(homeRoutes);
+app.use(apiRoutes);
 
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
-});
+mongConnect.once("open", () => {
+  app.listen(3000, function() {
+    console.log("Server started on port 3000");
+  });
+})
